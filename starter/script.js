@@ -90,17 +90,55 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-
-}
+  
+  var lowerCaseConfirmation = confirm("Do you want to include lower case characters?");
+  var upperCaseConfirmation = confirm("Do you want to include upper case characters?");
+  var specialCharacterConfirmation = confirm("Do you want to include special characters?");
+  var numbersConfirmation = confirm("Do you want to include number?");
+ 
+  return {
+    lowerCaseConfirmation,
+    upperCaseConfirmation,
+    specialCharacterConfirmation,
+    numbersConfirmation,
+  };
+  }
 
 // Function for getting a random element from an array
 function getRandom(arr) {
-
+  var randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
 }
 
 // Function to generate password with user input
 function generatePassword() {
-
+  var passwordLength = parseInt(prompt("Please select a number between 8-128 for the length of your password?"));
+  if (passwordLength < 8 || passwordLength > 128) {
+    alert("Please select a number between 8 and 128!")
+    return generatePassword()
+  }
+    if (!passwordLength){
+    alert("Please select a number between 8 and 128!")
+    return generatePassword()
+  }
+var options = getPasswordOptions();
+console.log(options);
+var characterBank = [];
+if (options.upperCaseConfirmation) {
+  characterBank = characterBank.concat(upperCasedCharacters);
+}
+if (options.lowerCaseConfirmation) {
+  characterBank = characterBank.concat(lowerCasedCharacters);
+}
+if (options.specialCharacterConfirmation) {
+  characterBank = characterBank.concat(specialCharacters);
+}
+if (options.numbersConfirmation) {
+  characterBank = characterBank.concat(numericCharacters);
+}
+console.log(characterBank)
+var password = "";
+console.log(getRandom(characterBank))
 }
 
 // Get references to the #generate element
