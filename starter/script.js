@@ -139,6 +139,10 @@ if (options.numbersConfirmation) {
 console.log(characterBank)
 var password = "";
 console.log(getRandom(characterBank))
+/**
+ * Create a for loop that calls getRandom and concatenates the returned character to the password variable for as long as
+ * the passwordlength was set
+ */
 }
 
 // Get references to the #generate element
