@@ -90,18 +90,34 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-  
+  var passwordLength = parseInt(prompt("Please select a number between 8-128 for the length of your password?"));
+  if (passwordLength < 8 || passwordLength > 128) {
+    alert("Please select a number between 8 and 128!")
+    return
+  }
+    if (!passwordLength){
+    alert("Please select a number between 8 and 128!")
+    return
+  }
+
+  if (isNaN(passwordLength)){
+  alert("Please select a number between 8 and 128!");
+  };
+
   var lowerCaseConfirmation = confirm("Do you want to include lower case characters?");
   var upperCaseConfirmation = confirm("Do you want to include upper case characters?");
   var specialCharacterConfirmation = confirm("Do you want to include special characters?");
   var numbersConfirmation = confirm("Do you want to include number?");
- 
-  return {
-    lowerCaseConfirmation,
-    upperCaseConfirmation,
-    specialCharacterConfirmation,
-    numbersConfirmation,
+
+  var passwordOptions = {
+    lowerCaseConfirmation: lowerCaseConfirmation,
+    upperCaseConfirmation: upperCaseConfirmation,
+    specialCharacterConfirmation: specialCharacterConfirmation,
+    numbersConfirmation: numbersConfirmation,
+    passwordLength: passwordLength,
   };
+ 
+  return passwordOptions;
   }
 
 // Function for getting a random element from an array
@@ -112,15 +128,7 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
-  var passwordLength = parseInt(prompt("Please select a number between 8-128 for the length of your password?"));
-  if (passwordLength < 8 || passwordLength > 128) {
-    alert("Please select a number between 8 and 128!")
-    return generatePassword()
-  }
-    if (!passwordLength){
-    alert("Please select a number between 8 and 128!")
-    return generatePassword()
-  }
+  
 var options = getPasswordOptions();
 console.log(options);
 var characterBank = [];
@@ -128,7 +136,7 @@ var result = [];
 var guaranteedCharacters = [];
 if (options.upperCaseConfirmation) {
   characterBank = characterBank.concat(upperCasedCharacters);
-  guaranteedCharacters.push(getRandom(upperCasedCharactersCharacters));
+  guaranteedCharacters.push(getRandom(upperCasedCharacters));
 }
 if (options.lowerCaseConfirmation) {
   characterBank = characterBank.concat(lowerCasedCharacters);
@@ -143,16 +151,16 @@ if (options.numbersConfirmation) {
   guaranteedCharacters.push(getRandom(numericCharacters));
 }
 console.log(characterBank)
-// var password = "";
 console.log(getRandom(characterBank))
 
-for (var index = 0; index < options.length; index++){
+for (var index = 0; index < options.passwordLength; index++){
   var randomCharacter = getRandom(characterBank);
-  result.push = randomCharacter;
+  result.push(randomCharacter);
 }
 for (var index = 0; index < guaranteedCharacters.length; index++){
   result[index] = guaranteedCharacters[index];
 }
+console.log(result)
 return result.join("");
 }
 
